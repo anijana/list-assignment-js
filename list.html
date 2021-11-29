@@ -1,0 +1,293 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List</title>
+    <style>
+        body{
+            background-color: #34495e;
+        }
+        div{
+            width: 500px;
+            margin: 100px auto;
+            text-align: center;
+            box-shadow: 0 0 10px white;
+            padding: 30px;
+            background-color: #bdc3c7;
+        }
+        .btn{
+            background-color: #009432;
+            border-radius: 5px;
+        }
+        button{
+            background-color: red;
+        }
+    </style>
+    <script>
+        function fn(){
+            var inputText = document.getElementById("list").value;
+
+            if (inputText === "") {
+                alert("Please enter the any text");
+                return;
+            } else {
+                
+                var element = document.createElement('span');
+                element.style.color ='#ff6b81';
+                element.style.marginRight = "20px";
+                element.style.marginTop = "20px";
+                element.append(inputText);
+                
+                
+               
+
+                var edit_btn = document.createElement('button');
+                edit_btn.style.marginRight = "10px";
+                edit_btn.style.marginTop = "20px";
+                edit_btn.innerText = "Edit";
+
+                var delete_btn = document.createElement('button');
+                delete_btn.style.marginTop = "20px";
+                delete_btn.innerText = "Delete";
+                
+                
+
+                var br = document.createElement("br");
+
+                
+
+                document.querySelector("div").appendChild(element);
+                document.querySelector("div").appendChild(edit_btn);
+                document.querySelector("div").appendChild(delete_btn);
+                document.querySelector("div").appendChild(br);
+               
+
+                
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <input type="text" name="" id="list" placeholder="Enter Any Text">
+        <button onclick="fn()" class="btn">Add</button>
+    </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #34495e;
+        overflow-x: hidden;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        height: 100%;
+      }
+      #main {
+        color: white;
+        padding: 20px;
+        margin: 0 auto;
+        width: 600px;
+        height: auto;
+      }
+      #main > .heading {
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      #main > .heading > h1 {
+        display: inline-block;
+        position: relative;
+        text-transform: uppercase;
+        font-size: 2.5rem;
+      }
+      #main > .heading > h1::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        bottom: 0;
+        width: 10%;
+        height: 2px;
+        background-color: white;
+        transition: 0.5s;
+      }
+      #main > .heading > h1:hover::before {
+        width: 100%;
+      }
+      #main > .input-container {
+        width: 100%;
+        text-align: center;
+        position: relative;
+        margin-bottom: 50px;
+      }
+      #main > .input-container > .todo_input {
+        width: 100%;
+        height: 40px;
+        padding: 0 0 0 10px;
+        font-size: 1.2rem;
+        outline: none;
+        border: none;
+      }
+      .add-item {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background-color: orangered;
+        line-height: 40px;
+        color: white;
+        cursor: pointer;
+      }
+      #main > .list-container {
+          list-style: none;
+          margin: 10px 0 0;
+      }
+      #main > .list-container .todo-list {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          overflow: hidden;
+      }
+      #main > .list-container .todo-list .todo-item {
+          width: 100%;
+          background-color: white;
+          color: black;
+          height: 40px;
+          line-height: 40px;
+          padding: 0 10px;
+          
+      }
+      #main > .list-container .todo-list .button {
+            position: absolute;
+            right: 0;
+      }
+      #main > .list-container .todo-list .button button {
+          width: 40px;
+          height: 50px;
+          border: none;
+          color: white;
+          outline: none;
+          cursor: pointer;
+      }
+      #main > .list-container .todo-list .button .editBtn {
+          background-color: green;
+          
+      }
+      #main > .list-container .todo-list .button .deleteBtn {
+          background-color: red;
+          
+      }
+
+      @media screen and (max-width: 600px){
+          #main {
+              width: 100%;
+          }
+      }
+      .fall{
+          opacity: 0 !important;
+          transform: translateY(30px);
+          transition: .5s;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div class="heading">
+        <h1>List</h1>
+      </div>
+      <div class="input-container">
+        <input
+          type="text"
+          class="todo_input"
+          placeholder="Enter Task.........."
+        />
+        <button class="add-item">ADD</button>
+      </div>
+    </div>
+    <script>
+      var mainContainer = document.getElementById("main");
+      var input = document.querySelector(".todo_input");
+      var addButton = document.querySelector(".add-item");
+
+      addButton.addEventListener("click", function (e) {
+        if (input.value.trim()) {
+          var ulTag = document.createElement("ul");
+          ulTag.classList.add("list-container");
+
+          var todoList = document.createElement("div");
+          todoList.classList.add("todo-list");
+
+          var liTag = document.createElement("li");
+          liTag.innerHTML = input.value;
+          liTag.classList.add("todo-item");
+
+          var buttonDiv = document.createElement("div");
+          buttonDiv.classList.add("button");
+
+          var editButton = document.createElement("button");
+          editButton.classList.add("editBtn");
+          editButton.innerHTML = "Edit";
+          editButton.onclick = function() {
+              editWorking(liTag);
+          }
+
+          var deleteButton = document.createElement("button");
+          deleteButton.classList.add("deleteBtn");
+          deleteButton.innerHTML = "Delete";
+
+          ulTag.appendChild(todoList);
+          todoList.appendChild(liTag);
+          todoList.appendChild(buttonDiv);
+          buttonDiv.appendChild(editButton);
+          buttonDiv.appendChild(deleteButton);
+
+          mainContainer.appendChild(ulTag);
+          todoList.addEventListener('click', function(e) {
+              var items = e.target;
+              if(items.classList[0] === 'deleteBtn'){
+                  var todo = items.parentElement;
+                  var todo2 = todo.parentElement;
+                  var todo3 = todo2.parentElement;
+                  todo3.classList.add('fall');
+                  todo3.addEventListener('transitionend', function(){
+                      todo3.remove();
+                  })
+              }
+          })
+          input.value = "";
+        }
+        else if(input.value === ''){
+            alert('please Enter the any Task');
+        }
+      });
+
+      function editWorking(e) {
+          var editValue = prompt('Edit the select Task', e.firstChild.nodeValue);
+          e.firstChild.nodeValue = editValue;
+      }
+    </script>
+  </body>
+</html>
